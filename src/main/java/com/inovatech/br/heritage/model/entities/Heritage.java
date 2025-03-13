@@ -1,6 +1,7 @@
-package com.inovatech.br.patrimonio.model.entities;
+package com.inovatech.br.heritage.model.entities;
 
-import com.inovatech.br.patrimonio.model.enums.Category;
+import com.inovatech.br.heritage.model.enums.HeritageStatus;
+import com.inovatech.br.heritage.model.enums.HeritageStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,10 +12,7 @@ import java.time.LocalDate;
 @Table(name = "tb_heritage")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class Heritage {
 
     @Id
@@ -36,17 +34,21 @@ public class Heritage {
     @Column
     private byte[] image;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Category category;
+    @Column(nullable = false, unique = true)
+    private String category;
 
     @Column
-    private BigDecimal value;
+    private BigDecimal heritageValue;
 
     @Column
     private LocalDate dateOfPurchase;
 
     @Column
     private String location;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private HeritageStatus status;
+
 
 }
