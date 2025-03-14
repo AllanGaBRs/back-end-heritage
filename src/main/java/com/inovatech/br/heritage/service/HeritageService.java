@@ -9,6 +9,7 @@ import com.inovatech.br.heritage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,22 @@ public class HeritageService {
         return convert(heritageRepository.findById(id).orElse(null));
     }
 
+    public Heritage update(Long id, HeritageCreateDTO dto){
+        User user = userRepository.findById(2L).orElseThrow(()
+                -> new RuntimeException("Usuario nao encontrado"));
+
+        Heritage heritage = heritageRepository.findById(id).orElse(null);
+        if(heritage != null){
+            updateNonNullFields(dto, heritage);
+            heritage.setModifiedBy(user);
+            heritage.setLastModified(LocalDateTime.now());
+            heritageRepository.save(heritage);
+        }
+
+        return heritage;
+    }
+
+
     private HeritageViewDTO convert(Heritage h){
         if(h == null){
             throw new IllegalArgumentException("O objeto Heritage não pode ser nulo.");
@@ -74,5 +91,17 @@ public class HeritageService {
                 h.getCategory(),
                 h.getStatus()
         );
+    }
+
+    private void updateNonNullFields(HeritageCreateDTO dto, Heritage heritage) {
+        if (dto.name() != null) heritage.setName(dto.name());
+        if (dto.code() != null) heritage.setCode(dto.code());
+        if (dto.description() != null) heritage.setDescription(dto.description());
+        if (dto.image() != null) heritage.setImage(dto.image());
+        if (dto.category() != null) heritage.setCategory(dto.category());
+        if (dto.heritageValue() != null) heritage.setHeritageValue(dto.heritageValue());
+        if (dto.dateOfPurchase() != null) heritage.setDateOfPurchase(dto.dateOfPurchase());
+        if (dto.location() != null) heritage.setLocation(dto.location());
+        if (dto.status() != null) heritage.setStatus(dto.status());
     }
 }

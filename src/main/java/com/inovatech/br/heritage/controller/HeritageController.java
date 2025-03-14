@@ -36,4 +36,11 @@ public class HeritageController {
         return ResponseEntity.ok().body(heritage);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Heritage> update(@PathVariable Long id, @RequestBody HeritageCreateDTO dto){
+        Heritage heritage = heritageService.update(id, dto);
+        return ResponseEntity.ok().body(heritage);
+    }
+
+
 }
