@@ -4,6 +4,7 @@ public enum HeritageStatus {
 
     EM_USO,
     MANUTENCAO,
+    EMPRESTADO,
     DESCARTADO;
 
 }

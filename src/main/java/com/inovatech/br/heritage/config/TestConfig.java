@@ -36,6 +36,7 @@ public class TestConfig implements CommandLineRunner {
         heritage1.setCode("APEC 9895");
         heritage1.setCategory("TABLET");
         heritage1.setLocation("inovatech");
+        heritage1.setCreateBy(user1);
 
         heritageRepository.save(heritage1);
     }

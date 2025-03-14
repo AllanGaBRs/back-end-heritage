@@ -1,8 +1,11 @@
 package com.inovatech.br.heritage.controller;
 
+import com.inovatech.br.heritage.dto.HeritageCreateDTO;
+import com.inovatech.br.heritage.dto.HeritageViewDTO;
 import com.inovatech.br.heritage.model.entities.Heritage;
 import com.inovatech.br.heritage.service.HeritageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +18,13 @@ public class HeritageController {
     private HeritageService heritageService;
 
     @GetMapping
-    public List<Heritage> listAll(){
-        return heritageService.findAll();
+    public ResponseEntity<List<HeritageViewDTO>> listAllForCommonUser(){
+        return heritageService.findAllForCommonUser();
     }
 
     @PostMapping("/save")
-    public Heritage saveHeritage(@RequestBody Heritage heritage){
-        return heritageService.save(heritage);
+    public ResponseEntity<Heritage> saveHeritage(@RequestBody HeritageCreateDTO heritageDTO){
+        return heritageService.save(heritageDTO);
     }
 
 }

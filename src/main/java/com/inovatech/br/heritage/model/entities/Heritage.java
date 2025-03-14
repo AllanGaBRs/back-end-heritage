@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_heritage")
@@ -32,7 +33,7 @@ public class Heritage {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column
-    private byte[] image;
+    private Byte[] image;
 
     @Column(nullable = false, unique = true)
     private String category;
@@ -50,4 +51,13 @@ public class Heritage {
     @Column
     private HeritageStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User createBy;
+
+    @Column
+    private String modifiedBy;
+
+    @Column
+    private LocalDateTime lastModified;
 }
