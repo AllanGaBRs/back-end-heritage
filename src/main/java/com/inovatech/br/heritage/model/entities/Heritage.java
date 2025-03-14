@@ -50,5 +50,4 @@ public class Heritage {
     @Column
     private HeritageStatus status;
 
-
 }
