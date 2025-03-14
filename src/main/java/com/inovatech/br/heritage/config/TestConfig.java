@@ -29,7 +29,14 @@ public class TestConfig implements CommandLineRunner {
         user1.setEmail("allan@gmail.com");
         user1.setPassword("123456");
 
+        User user2 = new User();
+        user2.setUsername("mello");
+        user2.setUserRole(UserRole.USER);
+        user2.setEmail("mello@gmail.com");
+        user2.setPassword("123456");
+
         userRepository.save(user1);
+        userRepository.save(user2);
 
         Heritage heritage1 = new Heritage();
         heritage1.setName("CHINAMATE");
@@ -37,6 +44,7 @@ public class TestConfig implements CommandLineRunner {
         heritage1.setCategory("TABLET");
         heritage1.setLocation("inovatech");
         heritage1.setCreateBy(user1);
+        heritage1.setModifiedBy(user1);
 
         heritageRepository.save(heritage1);
     }

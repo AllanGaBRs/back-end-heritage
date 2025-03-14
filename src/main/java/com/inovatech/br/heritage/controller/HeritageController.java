@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,14 +18,22 @@ public class HeritageController {
     @Autowired
     private HeritageService heritageService;
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<HeritageViewDTO>> listAllForCommonUser(){
-        return heritageService.findAllForCommonUser();
+        List<HeritageViewDTO> list = heritageService.findAllForCommonUser();
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping("/save")
     public ResponseEntity<Heritage> saveHeritage(@RequestBody HeritageCreateDTO heritageDTO){
-        return heritageService.save(heritageDTO);
+       Heritage heritage = heritageService.save(heritageDTO);
+       return ResponseEntity.status(201).body(heritage);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HeritageViewDTO> findById(@PathVariable Long id){
+        HeritageViewDTO heritage = heritageService.findById(id);
+        return ResponseEntity.ok().body(heritage);
     }
 
 }

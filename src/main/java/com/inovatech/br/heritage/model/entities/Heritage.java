@@ -35,7 +35,7 @@ public class Heritage {
     @Column
     private Byte[] image;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String category;
 
     @Column
@@ -55,8 +55,9 @@ public class Heritage {
     @JoinColumn(name = "user_id", nullable = false)
     private User createBy;
 
-    @Column
-    private String modifiedBy;
+    @ManyToOne
+    @JoinColumn(name = "modified_by_user_id", nullable = false)
+    private User modifiedBy;
 
     @Column
     private LocalDateTime lastModified;
